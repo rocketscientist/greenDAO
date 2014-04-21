@@ -1,10 +1,20 @@
 // Just a dummy script building a useless jar file. Waiting for version 0.3 of Android's new build system. 
-apply plugin: 'java'
-apply plugin: 'maven'
+//apply plugin: 'java'
+//apply plugin: 'maven'
+apply plugin: 'android'
 
 group = 'de.greenrobot'
 version = '1.3.0'
 sourceCompatibility = 1.6
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -13,6 +23,25 @@ repositories {
 dependencies {
     compile('de.greenrobot:greendao:1.3.0')
 }
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.1"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
 
 sourceSets {
     main {
@@ -23,6 +52,8 @@ sourceSets {
         }
     }
 }
+/*
 artifacts {
     archives jar
 }
+*/
